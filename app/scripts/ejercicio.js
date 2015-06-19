@@ -22,7 +22,7 @@
                {
                    'data': 'id_doctor',
                    'render': function(data) {
-                       return '<a class="btn btn-primary editarbtn" href=http://www.futbolistas.com/editar.php?id_clinica=' + data + '>Editar</a><a class="btn btn-warning borrarbtn" href=http://www.futbolistas.com/borrar.php?id_clinica=' + data + '>Borrar</a>';
+                       return '<a class="btn btn-primary editarbtn" href=http://www.futbolistas.com/editar.php?id_doctor=' + data + '>Editar</a><a class="btn btn-warning borrarbtn" href=http://www.futbolistas.com/borrar.php?id_doctor=' + data + '>Borrar</a>';
                    }
                }
            ],
@@ -70,13 +70,13 @@
 
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
-           var idClinica = aData.idClinica;
+           var id_doctor = aData.id_doctor;
            $.ajax({
-                   url: 'http://www.futbolistas.com/borrar_clinica.php',
+                   url: 'http://www.futbolistas.com/borrar_doctor.php',
                    type: 'GET',
                    dataType: 'json',
                    data: {
-                       'id_clinica': idClinica
+                       'id_doctor': id_doctor
                    },
                })
                .done(function() {
