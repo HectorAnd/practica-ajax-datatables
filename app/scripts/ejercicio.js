@@ -5,33 +5,22 @@
            'processing': true,
            'serverSide': true,
 
-           'ajax': 'http://www.futbolistas.com/server_processing.php',
+           'ajax': 'http://www.futbolistas.com/server_processing2.php',
            "columns": [{
-                   "data": "idClinica",
-                   "visible": false
+                   "data": "id_doctor",
+                   //"visible": false
                }, {
                    "data": "nombre"
                }, {
-                   "data": "rezonSocial"
+                   "data": "numcolegiado"
                }, {
-                   "data": "cif"
+                   "data": "id_clinicas"
                }, {
-                   "data": "localidad"
-               }, {
-                   "data": "provincia"
-               }, {
-                   "data": "direccion"
-               }, {
-                   "data": "numClinica"
-               }, {
-                   "data": "idTarifa",
-                   "visible": false
-               }, {
-                   "data": "nombreTarifa"
-               },
+                   "data": "nombreclinicas"
+               }, 
 
                {
-                   'data': 'idClinica',
+                   'data': 'id_doctor',
                    'render': function(data) {
                        return '<a class="btn btn-primary editarbtn" href=http://www.futbolistas.com/editar.php?id_clinica=' + data + '>Editar</a><a class="btn btn-warning borrarbtn" href=http://www.futbolistas.com/borrar.php?id_clinica=' + data + '>Borrar</a>';
                    }
@@ -69,21 +58,12 @@
            $('#formulario').fadeIn(100);
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
-           $('#idClinica').val(aData.idClinica);
+           $('#id_doctor').val(aData.id_doctor);
            $('#nombre').val(aData.nombre);
-           $('#numClinica').val(aData.numClinica);
-           $('#razonSocial').val(aData.razonSocial);
-           $('#cif').val(aData.cif);
-           $('#localidad').val(aData.localidad);
-           /*lo más cómodo para la provincia sería esto:
-           $('#provincia').val(aData.provincia);
-           pero como el valor de la provincia viene con digitos en el html (atributo val), tenemos que selecionar por el texto contenido:*/
-           $('#provincia option').filter(function() {
-               return this.text.toLowerCase() === aData.provincia.toLowerCase();
-           }).attr('selected', true);
-           $('#id_tarifa').val(aData.idTarifa);
-           $('#direccion').val(aData.direccion);
-           $('#cp').val(aData.cp);
+           $('#numcolegiado').val(aData.numcolegiado);
+           $('#id_clinicas').val(aData.id_clinicas);
+           $('#nombreclinicas').val(aData.nombreclinicas);
+           
        });
        $('#miTabla').on('click', '.borrarbtn', function(e) {
            e.preventDefault();
@@ -118,7 +98,7 @@
 
 
        /*Cargamos los datos para las tarifas:*/
-       function cargarTarifas() {
+       /*function cargarTarifas() {
            $.ajax({
                    type: 'GET',
                    dataType: 'json',
@@ -139,7 +119,7 @@
 
                });
        }
-       cargarTarifas();
+       cargarTarifas();*/
 
        $('#enviar').click(function(e) {
                e.preventDefault();
@@ -149,7 +129,7 @@
                
                window.alert(datos);
                $.ajax({
-                       url: 'http://www.futbolistas.com/modificar_clinica.php',
+                       url: 'http://www.futbolistas.com/modificar_doctor.php',
                        type: 'POST',
                        dataType: 'json',
                        data: datos,
@@ -171,4 +151,5 @@
 
            
        });
+
    });
