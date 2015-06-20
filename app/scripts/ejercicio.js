@@ -17,7 +17,7 @@
                    "data": "id_clinicas"
                }, {
                    "data": "nombreclinicas"
-               }, 
+               },
 
                {
                    'data': 'id_doctor',
@@ -63,7 +63,8 @@
            $('#numcolegiado').val(aData.numcolegiado);
            $('#id_clinicas').val(aData.id_clinicas);
            $('#nombreclinicas').val(aData.nombreclinicas);
-           
+            cargarClinicas();
+
        });
        $('#miTabla').on('click', '.borrarbtn', function(e) {
            e.preventDefault();
@@ -94,7 +95,28 @@
 
        });
 
-
+       function cargarClinicas() {
+           $.ajax({
+               type: 'POST',
+               dataType: 'json',
+               url: 'http://www.futbolistas.com/select_clinicas.php',
+               async: false,
+               error: function(xhr, status, error) {
+                   //mostraríamos alguna ventana de alerta con el error
+               },
+               success: function(data) {
+                   $('#clinicas_n,#clinicas_e').empty();
+                   $.each(data, function() {
+                       $('#clinicas_n,#clinicas_e').append(
+                           $('<option ></option>').val(this.id_clinica).html(this.nombre)
+                       );
+                   });
+               },
+               complete: {
+                   //si queremos hacer algo al terminar la petición ajax
+               }
+           });
+       }
 
 
        /*Cargamos los datos para las tarifas:*/
@@ -122,34 +144,34 @@
        cargarTarifas();*/
 
        $('#enviar').click(function(e) {
-               e.preventDefault();
+           e.preventDefault();
 
 
-               var datos = $('#miFormulario').serialize();
-               
-               window.alert(datos);
-               $.ajax({
-                       url: 'http://www.futbolistas.com/modificar_doctor.php',
-                       type: 'POST',
-                       dataType: 'json',
-                       data: datos,
+           var datos = $('#miFormulario').serialize();
 
-                   })
-                   .done(function() {
-                       var $mitabla = $('#miTabla').dataTable({
-                           bRetrieve: true
-                       });
-                       $mitabla.fnDraw();
-                   })
-                   .fail(function() {
-                       console.log("error");
-                   })
-                   .always(function() {
-                       $('#tabla').fadeIn(100);
-                       $('#formulario').fadeOut(100);
+           window.alert(datos);
+           $.ajax({
+                   url: 'http://www.futbolistas.com/modificar_doctor.php',
+                   type: 'POST',
+                   dataType: 'json',
+                   data: datos,
+
+               })
+               .done(function() {
+                   var $mitabla = $('#miTabla').dataTable({
+                       bRetrieve: true
                    });
+                   $mitabla.fnDraw();
+               })
+               .fail(function() {
+                   console.log("error");
+               })
+               .always(function() {
+                   $('#tabla').fadeIn(100);
+                   $('#formulario').fadeOut(100);
+               });
 
-           
+
        });
 
    });
