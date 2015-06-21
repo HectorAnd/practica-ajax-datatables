@@ -148,7 +148,7 @@
 
 
            var datos = $('#miFormulario').serialize();
-
+          
            window.alert(datos);
            $.ajax({
                    url: 'http://www.futbolistas.com/modificar_doctor.php',
