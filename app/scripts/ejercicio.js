@@ -64,6 +64,13 @@
            $('#id_clinicas').val(aData.id_clinicas);
            $('#nombreclinicas').val(aData.nombreclinicas);
             cargarClinicas();
+            //selecciono las que estaban
+          var clinicas = aData.id_clinicas;
+
+          clinicas = clinicas.split(",");
+
+          //cargo el select con las que ya estaban
+          $('#clinicas_e').val(clinicas);
 
        });
        $('#miTabla').on('click', '.borrarbtn', function(e) {
