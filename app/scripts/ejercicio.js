@@ -145,7 +145,10 @@
 
        $('#enviar').click(function(e) {
            e.preventDefault();
-
+         var id_doctor = $('#id_doctor').val();
+         var  nombre = $('#nombre').val();
+         var  numcolegiado = $('#numcolegiado').val();
+          var clinicas_e = $('#clinicas_e').val();
 
            var datos = $('#miFormulario').serialize();
           
@@ -154,8 +157,13 @@
                    url: 'http://www.futbolistas.com/modificar_doctor.php',
                    type: 'POST',
                    dataType: 'json',
-                   data: datos,
-
+                  data: {
+                   id_doctor: id_doctor,
+                   nombre: nombre,
+                   numcolegiado: numcolegiado,
+                   clinicas_e:clinicas_e
+                   
+               }
                })
                .done(function() {
                    var $mitabla = $('#miTabla').dataTable({
