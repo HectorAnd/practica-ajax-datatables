@@ -73,6 +73,20 @@
           $('#clinicas_e').val(clinicas);
 
        });
+              $('#a_doctor').click(function(e) {
+           e.preventDefault();
+           $('#tabla').fadeOut(100);
+           $('#aformulario').fadeIn(100);
+
+            cargarClinicas();
+ 
+      
+
+       });
+
+
+
+
        $('#miTabla').on('click', '.borrarbtn', function(e) {
            e.preventDefault();
 
@@ -112,9 +126,9 @@
                    //mostraríamos alguna ventana de alerta con el error
                },
                success: function(data) {
-                   $('#clinicas_n,#clinicas_e').empty();
+                   $('#clinicas_a,#clinicas_e').empty();
                    $.each(data, function() {
-                       $('#clinicas_n,#clinicas_e').append(
+                       $('#clinicas_a,#clinicas_e').append(
                            $('<option ></option>').val(this.id_clinica).html(this.nombre)
                        );
                    });
@@ -184,6 +198,48 @@
                .always(function() {
                    $('#tabla').fadeIn(100);
                    $('#formulario').fadeOut(100);
+               });
+
+
+       });
+
+
+
+
+       $('#registrar').click(function(e) {
+           e.preventDefault();
+      
+         var  nombre = $('#a_nombre').val();
+         var  numcolegiado = $('#a_numcolegiado').val();
+          var clinicas= $('#clinicas_a').val();
+
+           var datos = $('#a_miFormulario').serialize();
+          
+           window.alert(datos);
+           $.ajax({
+                   url: 'http://www.futbolistas.com/nuevo_doctor.php',
+                   type: 'POST',
+                   dataType: 'json',
+                  data: {
+                 
+                   nombre: nombre,
+                   numcolegiado: numcolegiado,
+                   clinicas:clinicas
+                   
+               }
+               })
+               .done(function() {
+                   var $mitabla = $('#miTabla').dataTable({
+                       bRetrieve: true
+                   });
+                   $mitabla.fnDraw();
+               })
+               .fail(function() {
+                   console.log("error");
+               })
+               .always(function() {
+                   $('#tabla').fadeIn(100);
+                   $('#aformulario').fadeOut(100);
                });
 
 
