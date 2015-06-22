@@ -37,25 +37,33 @@ mysql_query('SET names utf8');
  * Get data to display
  */
 
-$id = $_POST["id_clinica"];
+$id = $_POST["id_doctor"];
 $nombre = $_POST["nombre"];
-$localidad = $_POST["localidad"];
-$provincia = $_POST["provincia"];
-$direccion = $_POST["direccion"];
-$cp = $_POST["cp"];
-$id_tarifa = $_POST["id_tarifa"];
-$cif = $_POST["cif"];
+$numcolegiado = $_POST["numcolegiado"];
+$clinicas = $_POST["clinicas_e"];
+
+
+
+
+if($clinicas){
+  $query = "DELETE FROM clinica_doctor WHERE id_doctor=" . $id;
+  $query_res = mysql_query($query);
+}
+for ($i=0;$i<count($clinicas);$i++)
+{
+  $queryCD = "INSERT INTO clinica_doctor (id_doctor,id_clinica) VALUES(
+    ". $id . ",
+    " . $clinicas[$i] . ")" ;
+  $query_res = mysql_query($queryCD);
+} 
+
+
 
 /* Consulta UPDATE */
-$query = "UPDATE clinicas SET 
+$query = "UPDATE doctores SET 
             nombre = '" . $nombre . "', 
-            localidad = '" . $localidad . "', 
-            provincia = '" . $provincia . "', 
-            direccion = '" . $direccion . "', 
-            cp = '" . $cp . "',
-            id_tarifa = '" . $id_tarifa . "',
-            cif = '" . $cif . "'
-            WHERE id_clinica = " . $id;
+            numcolegiado = '" . $numcolegiado . "'
+            WHERE id_doctor = " . $id;
 
 //mysql_query($query, $gaSql['link']) or fatal_error('MySQL Error: ' . mysql_errno());
 /*En función del resultado correcto o no, mostraremos el mensaje que corresponda*/

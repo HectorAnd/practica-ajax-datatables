@@ -5,7 +5,7 @@
            'processing': true,
            'serverSide': true,
 
-           'ajax': 'http://www.futbolistas.com/server_processing2.php',
+           'ajax': 'php/server_processing2.php',
            "columns": [{
                    "data": "id_doctor",
                    //"visible": false
@@ -94,7 +94,7 @@
            var aData = miTabla.row(nRow).data();
            var id_doctor = aData.id_doctor;
            $.ajax({
-                   url: 'http://www.futbolistas.com/borrar_doctor.php',
+                   url: 'php/borrar_doctor.php',
                    type: 'GET',
                    dataType: 'json',
                    data: {
@@ -120,7 +120,7 @@
            $.ajax({
                type: 'POST',
                dataType: 'json',
-               url: 'http://www.futbolistas.com/select_clinicas.php',
+               url: 'php/select_clinicas.php',
                async: false,
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
@@ -140,29 +140,7 @@
        }
 
 
-       /*Cargamos los datos para las tarifas:*/
-       /*function cargarTarifas() {
-           $.ajax({
-                   type: 'GET',
-                   dataType: 'json',
-                   url: 'http://www.futbolistas.com/listar_tarifas.php'
 
-
-               })
-               .done(function(data) {
-                   $('#idTarifa').empty();
-                   $.each(data, function() {
-                       $('#idTarifa').append(
-                           $('<option></option>').val(this.id_tarifa).html(this.nombre)
-                       );
-                   });
-               })
-               .fail(function() {
-                   console.log("ha habido un error al obtener las tarifas")
-
-               });
-       }
-       cargarTarifas();*/
 
        $('#enviar').click(function(e) {
            e.preventDefault();
@@ -175,7 +153,7 @@
           
            window.alert(datos);
            $.ajax({
-                   url: 'http://www.futbolistas.com/modificar_doctor.php',
+                   url: 'php/modificar_doctor.php',
                    type: 'POST',
                    dataType: 'json',
                   data: {
@@ -217,7 +195,7 @@
           
            window.alert(datos);
            $.ajax({
-                   url: 'http://www.futbolistas.com/nuevo_doctor.php',
+                   url: 'php/nuevo_doctor.php',
                    type: 'POST',
                    dataType: 'json',
                   data: {

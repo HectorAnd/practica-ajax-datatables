@@ -37,29 +37,43 @@ mysql_query('SET names utf8');
  * Get data to display
  */
 
-$id = $_POST["id_clinica"];
+
 $nombre = $_POST["nombre"];
-$localidad = $_POST["localidad"];
-$provincia = $_POST["provincia"];
-$direccion = $_POST["direccion"];
-$cp = $_POST["cp"];
-$id_tarifa = $_POST["id_tarifa"];
-$cif = $_POST["cif"];
+$numcolegiado = $_POST["numcolegiado"];
+$clinicas = $_POST["clinicas"];
 
 /* Consulta UPDATE */
-$query = "UPDATE clinicas SET 
-            nombre = '" . $nombre . "', 
-            localidad = '" . $localidad . "', 
-            provincia = '" . $provincia . "', 
-            direccion = '" . $direccion . "', 
-            cp = '" . $cp . "',
-            id_tarifa = '" . $id_tarifa . "',
-            cif = '" . $cif . "'
-            WHERE id_clinica = " . $id;
+$query = "insert into doctores (nombre,numcolegiado) values( 
+             '". $nombre . "', 
+            '" . $numcolegiado . "')" ;
 
 //mysql_query($query, $gaSql['link']) or fatal_error('MySQL Error: ' . mysql_errno());
 /*En función del resultado correcto o no, mostraremos el mensaje que corresponda*/
 $query_res = mysql_query($query);
+if($query_res){
+$sql = "SELECT id_doctor
+        FROM doctores
+        where numcolegiado='".$numcolegiado."'";
+//echo "$sql <br>";
+$res = mysql_query($sql);
+while($row = mysql_fetch_array($res, MYSQL_ASSOC))
+{
+$id=$row['id_doctor'];
+}
+}
+
+
+for ($i=0;$i<count($clinicas);$i++)
+{
+  $queryCD = "INSERT INTO clinica_doctor (id_doctor,id_clinica) VALUES(
+    ". $id . ",
+    " . $clinicas[$i] . ")" ;
+  $query_res = mysql_query($queryCD);
+} 
+
+
+
+
 
 // Comprobar el resultado
 if (!$query_res) {
