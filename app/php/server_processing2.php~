@@ -43,9 +43,9 @@ $columns = array(
 
 // SQL server connection information
 $sql_details = array(
-	'user' => 'handres_root',
-	'pass' => 'password',
-	'db'   => 'handres_datatables',
+	'user' => 'root',
+	'pass' => 'root',
+	'db'   => 'datatables',
 	'host' => 'localhost'
 );
 

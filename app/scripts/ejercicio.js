@@ -77,6 +77,8 @@
            e.preventDefault();
            $('#tabla').fadeOut(100);
            $('#aformulario').fadeIn(100);
+           $('#a_nombre').val(' ');
+           $('#a_numcolegiado').val(' ');
 
             cargarClinicas();
  
@@ -151,7 +153,7 @@
 
            var datos = $('#miFormulario').serialize();
           
-           window.alert(datos);
+      
            $.ajax({
                    url: 'php/modificar_doctor.php',
                    type: 'POST',
@@ -193,7 +195,7 @@
 
            var datos = $('#a_miFormulario').serialize();
           
-           window.alert(datos);
+   
            $.ajax({
                    url: 'php/nuevo_doctor.php',
                    type: 'POST',
